@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Automation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>WhatsApp Message Automation</h1>
+            <form id="messageForm" action="{{ url_for('send_message') }}" method="POST" onsubmit="showWaitingMessage()">
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" placeholder="+91 XXXXXXXXXX"
+                        pattern="\+[0-9]{1,3}[0-9]{10}" title="Include country code, e.g., +91XXXXXXXXXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Enter your message here..." required></textarea>
+                </div>
+
+                <div class="time-group">
+                    <div class="form-group">
+                        <label for="hour">Hour:</label>
+                        <input type="number" id="hour" name="hour" min="0" max="23" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="minute">Minute:</label>
+                        <input type="number" id="minute" name="minute" min="0" max="59" required>
+                    </div>
+                </div>
+
+                <button type="submit">Send Message</button>
+            </form>
+
+            <!-- Waiting message -->
+            <div id="waitingMessage" class="hidden">Waiting for your time...</div>
+
+            <!-- Tips section -->
+            <div class="tips-section">
+                <h2>How to Use:</h2>
+                <ul>
+                    <li>Enter the recipient's phone number in the format: <strong>+CountryCode PhoneNumber</strong>. Example: +91XXXXXXXXXX.</li>
+                    <li>Write your message in the message box.</li>
+                    <li>Specify the time when you want the message to be sent by selecting the hour and minute.</li>
+                    <li>Once you submit the form, the message will be queued for delivery.</li>
+                    <li>Wait for the scheduled time—at that point, your message will be sent automatically!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showWaitingMessage() {
+            document.getElementById('waitingMessage').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+
